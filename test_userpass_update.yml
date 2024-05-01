@@ -1,0 +1,22 @@
+---
+- name: Test user pass update from secrets
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    
+    # Print User Pass and its updates
+    - name: Print User Pass and updated user pass
+      ansible.builtin.debug:
+        msg: 
+          - "username {{ username | default('user1') }}"
+          - "password {{ password | default('pass1') }}"
+          - "update_username {{ update_username | default('up_user1') }}"
+          - "update_password {{ update_password | default('up_pass1') }}"
+    
+    # Command to update new password
+    - name: This is where the task to update password would go
+      ansible.builtin.debug:
+        msg: 
+          - "update_username {{ update_username | default('up_user1') }}"
+          - "update_password {{ update_password | default('up_pass1') }}"
