@@ -1,0 +1,13 @@
+---
+- name: Test Update File with Template
+  hosts: all
+  become: true
+  vars:
+    my_dc: east
+    test_extra_var: test-extra-var
+
+  tasks:
+    - name: Update file with Template
+      ansible.builtin.template:
+        src: "templates/test-file-{{ my_dc }}"
+        dest: /home/ansible/test-file-demo.txt
