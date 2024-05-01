@@ -9,5 +9,5 @@
   tasks:
     - name: Update file with Template
       ansible.builtin.template:
-        src: "templates/test-file-{{ my_dc }}"
+        src: "templates/test-file-{{ my_dc }}.txt"
         dest: /home/ansible/test-file-demo.txt
