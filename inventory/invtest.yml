@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  gather_facts: false
+  vars:
+    csv_hosts: "{{ out.stdout_lines|map('split', ',')|groupby('0') }}"
+    ini_hosts: |
+      {% for group in csv_hosts %}
+      [{{ group.0 }}]
+      {% for host in group.1|map(attribute='1') %}
+      {{ host }}
+      {% endfor %}
+      {% endfor %}
+  tasks:
+    - name: Read the CSV file
+      command: cat test_inv2.csv
+      register: out
+
+    - name: Write the INI file
+      copy:
+        dest: test_inv2.ini
+        content: "{{ ini_hosts }}"
