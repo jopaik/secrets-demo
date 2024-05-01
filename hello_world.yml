@@ -1,5 +1,8 @@
 - name: Hello World Sample
   hosts: all
+  gather_facts: false 
+  connection: local
+  
   tasks:
     - name: Hello Message
       debug:
