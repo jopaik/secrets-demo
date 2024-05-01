@@ -1,0 +1,18 @@
+---
+- name: Test Cron Update
+  hosts: all
+  become: true
+
+  tasks:
+      
+    - name: Run CRON job to load data at every 5 minute of every hour.
+      become: yes
+      become_method: sudo
+      cron:
+        name: "test cron with ansible"
+        user: "root"
+        weekday: "*"
+        minute: "5"
+        hour: "*"
+        job: "sh /home/ansible/test-cron.sh"
+        state: present
