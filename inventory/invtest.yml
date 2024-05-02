@@ -5,9 +5,7 @@
     csv_hosts: "{{ out.stdout_lines|map('split', ',')|groupby('0') }}"
     ini_hosts: |
       {% for group in csv_hosts %}
-      [{{ group.0 }}]
-      {% for host in group.1|map(attribute='1') %}
-      {{ host }}
+      {{ group.0 }} ansible_host={{ host.4 }}
       {% endfor %}
       {% endfor %}
   tasks:
