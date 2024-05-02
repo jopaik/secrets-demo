@@ -2,11 +2,10 @@
 - hosts: localhost
   gather_facts: false
   vars:
-    csv_hosts: "{{ out.stdout_lines|map('split', ',')|groupby('0') }}"
+    csv_hosts: "{{ out.stdout_lines|map('split', ',') }}"
     ini_hosts: |
-      {% for group in csv_hosts %}
-      {{ group.0 }} ansible_host={{ host.4 }}
-      {% endfor %}
+      {% for host in csv_hosts %}
+      {{ host.0 | regex_replace('"','') }} ansible_host={{ host.4 | regex_replace('"','') | regex_search('^[^;]*') }}
       {% endfor %}
   tasks:
     - name: Read the CSV file
